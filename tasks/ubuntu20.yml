@@ -13,9 +13,3 @@
     repo: "deb http://ftp.de.debian.org/debian stretch main"
     state: present
     filename: "stretch"
-
-- name: (Ubuntu 20.04 + Python 2) Install PyMySQL from stretch
-  package:
-    name: python-pymysql
-    default_release: stretch
-    state: present
