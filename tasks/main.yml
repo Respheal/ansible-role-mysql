@@ -4,6 +4,14 @@
 - name: Include variables and set facts
   include: facts.yml
 
+# Resolves an edge case of Ubuntu 20.04running with Python 2 as default
+- name: (Ubuntu 20.04 + Python 2) Add debian stretch repo
+  include: "ubuntu20.yml"
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "20.04"
+    - ansible_python_version is version('3.0', '<')
+
 - name: (Ubuntu) Update APT cache
   apt:
     force_apt_get: true

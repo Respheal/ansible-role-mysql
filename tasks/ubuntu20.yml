@@ -1,0 +1,21 @@
+---
+# Resolves an edge case of Ubuntu running with Python 2 as default
+- name: (Ubuntu 20.04 + Python 2) Add debian stretch key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: "{{ item }}"
+  with_items:
+    - EF0F382A1A7B6500
+    - 04EE7237B7D453EC
+
+- name: (Ubuntu 20.04 + Python 2) Add backports repo for PyMySQL
+  apt_repository:
+    repo: "deb http://ftp.de.debian.org/debian stretch main"
+    state: present
+    filename: "stretch"
+
+- name: (Ubuntu 20.04 + Python 2) Install PyMySQL from stretch
+  package:
+    name: python-pymysql
+    default_release: stretch
+    state: present
